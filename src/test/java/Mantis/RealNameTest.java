@@ -62,4 +62,5 @@ public class RealNameTest {
         Response responseViewRealName = RestAssured.given().cookies(cookies).get("https://academ-it.ru/mantisbt/view.php?id=" + realname).andReturn();
         assertEquals(200, responseViewRealName.statusCode(), "Response status code is not as expected");
     }
+
 }
