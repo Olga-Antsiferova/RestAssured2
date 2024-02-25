@@ -5,6 +5,8 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.security.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,18 +51,17 @@ public class RealNameTest {
 
     @Test
     public void updateRealNameTest() {
-        String realname = "new_actual_name";
+        String realName = "new_actual_name";
         Response responseUpdateRealName = RestAssured
                 .given()
                 .contentType("application/x-www-form-urlencoded")
                 .cookies(cookies)
-                .body("id=realname&name=realname&value=" + realname)
+                .body("password_current=&password=&password_confirm=&email=rov55an3014@mail.ru&realname=" + realName)
                 .post("https://academ-it.ru/mantisbt/account_page.php")
                 .andReturn();
         System.out.println("\nResponse:");
         responseUpdateRealName.prettyPrint();
-        Response responseViewRealName = RestAssured.given().cookies(cookies).get("https://academ-it.ru/mantisbt/view.php?id=" + realname).andReturn();
+        Response responseViewRealName = RestAssured.given().cookies(cookies).get("https://academ-it.ru/mantisbt/view.php?id=" + realName).andReturn();
         assertEquals(200, responseViewRealName.statusCode(), "Response status code is not as expected");
     }
-
 }
