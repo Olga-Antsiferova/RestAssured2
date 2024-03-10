@@ -10,7 +10,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RealNameTest {
 
@@ -51,17 +52,29 @@ public class RealNameTest {
 
     @Test
     public void updateRealNameTest() {
-        String realName = "new_actual_name";
+
+        //Calendar calendar = Calendar.getInstance();
+        //DateFormat formatter = new SimpleDateFormat("MM-DD-YY ");
+        //String message = formatter.format(calendar.getTime());
+        //String realName = "new_actual_name_" + message;
+
+
+        //Date date = new Date();
+        //Timestamp timestamp = new Timestamp(date.getTime());
+        //String realName = "new_actual_name";
+        Timestamp timestamp = new Timestamp(new Date().getTime());
+        String currentTimestamp = String.valueOf(timestamp.getTimestamp());
+        String newRealName = "new_actual_name_" + currentTimestamp;
         Response responseUpdateRealName = RestAssured
                 .given()
                 .contentType("application/x-www-form-urlencoded")
                 .cookies(cookies)
-                .body("password_current=&password=&password_confirm=&email=rov55an3014@mail.ru&realname=" + realName)
+                .body("password_current=&password=&password_confirm=&email=rov55an3014@mail.ru&realname=" + newRealName)
                 .post("https://academ-it.ru/mantisbt/account_page.php")
                 .andReturn();
         System.out.println("\nResponse:");
         responseUpdateRealName.prettyPrint();
-        Response responseViewRealName = RestAssured.given().cookies(cookies).get("https://academ-it.ru/mantisbt/view.php?id=" + realName).andReturn();
+        Response responseViewRealName = RestAssured.given().cookies(cookies).get("https://academ-it.ru/mantisbt/view.php?id=" + newRealName).andReturn();
         assertEquals(200, responseViewRealName.statusCode(), "Response status code is not as expected");
     }
 }
