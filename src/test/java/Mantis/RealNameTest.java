@@ -9,9 +9,8 @@ import java.security.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.security.cert.CertPath;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RealNameTest {
 
@@ -53,18 +52,9 @@ public class RealNameTest {
     @Test
     public void updateRealNameTest() {
 
-        //Calendar calendar = Calendar.getInstance();
-        //DateFormat formatter = new SimpleDateFormat("MM-DD-YY ");
-        //String message = formatter.format(calendar.getTime());
-        //String realName = "new_actual_name_" + message;
+        String currentTimestamp = String.valueOf(new Timestamp(new Date().getTime()));
+        String newRealName = "new_real_name_" + currentTimestamp;
 
-
-        //Date date = new Date();
-        //Timestamp timestamp = new Timestamp(date.getTime());
-        //String realName = "new_actual_name";
-        Timestamp timestamp = new Timestamp(new Date().getTime());
-        String currentTimestamp = String.valueOf(timestamp.getTimestamp());
-        String newRealName = "new_actual_name_" + currentTimestamp;
         Response responseUpdateRealName = RestAssured
                 .given()
                 .contentType("application/x-www-form-urlencoded")
